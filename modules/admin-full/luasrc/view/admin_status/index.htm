@@ -39,6 +39,13 @@ $Id$
 			luci.sys.exec("sysctl net.ipv4.netfilter.ip_conntrack_max 2> /dev/null") or
 			""):match("%d+")) or -1
 
+                has_conntrack = 1
+                if conn_count == -1 then
+                        has_conntrack = 0
+                end
+                if conn_max == -1 then
+                        has_conntrack = 0
+                end
 
 		local rv = {
 			uptime     = luci.sys.uptime(),
@@ -516,7 +523,9 @@ $Id$
 			</tr></table>
 		</td></tr>
 		<% end %>
+		<% if has_conntrack then %>
 		<tr><td width="33%"><%:Active Connections%></td><td id="conns">-</td></tr>
+		<% end %>
 	</table>
 </fieldset>
 
