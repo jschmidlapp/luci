@@ -325,6 +325,9 @@ function register_pattern_virtual(self, pat)
 	IFACE_PATTERNS_VIRTUAL[#IFACE_PATTERNS_VIRTUAL+1] = pat
 end
 
+function has_dhcp(self)
+	return nfs.access("/etc/config/dhcp")
+end
 
 function has_ipv6(self)
 	return nfs.access("/proc/net/ipv6_route")

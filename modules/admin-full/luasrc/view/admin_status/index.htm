@@ -20,7 +20,7 @@ $Id$
 	local ntm = require "luci.model.network".init()
 
 	local has_ipv6 = luci.fs.access("/proc/net/ipv6_route")
-	local has_dhcp = luci.fs.access("/etc/config/dhcp")
+	local has_dhcp = ntm:has_dhcp()
 	local has_wifi = ntm:has_wifi()
 
 	if luci.http.formvalue("status") == "1" then
