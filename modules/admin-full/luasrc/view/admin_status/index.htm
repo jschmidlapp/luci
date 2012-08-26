@@ -30,14 +30,15 @@ $Id$
 		local _, _, memtotal, memcached, membuffers, memfree = luci.sys.sysinfo()
 
 		local conn_count = tonumber((
-			luci.sys.exec("wc -l /proc/net/nf_conntrack") or
-			luci.sys.exec("wc -l /proc/net/ip_conntrack") or
-			""):match("%d+")) or 0
+			luci.sys.exec("wc -l /proc/net/nf_conntrack 2> /dev/null") or
+			luci.sys.exec("wc -l /proc/net/ip_conntrack 2> /dev/null") or
+			""):match("%d+")) or -1
 
 		local conn_max = tonumber((
-			luci.sys.exec("sysctl net.nf_conntrack_max") or
-			luci.sys.exec("sysctl net.ipv4.netfilter.ip_conntrack_max") or
-			""):match("%d+")) or 4096
+			luci.sys.exec("sysctl net.nf_conntrack_max 2> /dev/null") or
+			luci.sys.exec("sysctl net.ipv4.netfilter.ip_conntrack_max 2> /dev/null") or
+			""):match("%d+")) or -1
+
 
 		local rv = {
 			uptime     = luci.sys.uptime(),
