@@ -330,6 +330,10 @@ function has_ipv6(self)
 	return nfs.access("/proc/net/ipv6_route")
 end
 
+function has_wifi(self)
+	return nfs.access("/etc/config/wireless")
+end
+
 function add_network(self, n, options)
 	local oldnet = self:get_network(n)
 	if n and #n > 0 and n:match("^[a-zA-Z0-9_]+$") and not oldnet then

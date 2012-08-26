@@ -17,13 +17,13 @@ $Id$
 	require "luci.fs"
 	require "luci.tools.status"
 
+	local ntm = require "luci.model.network".init()
+
 	local has_ipv6 = luci.fs.access("/proc/net/ipv6_route")
 	local has_dhcp = luci.fs.access("/etc/config/dhcp")
-	local has_wifi = luci.fs.stat("/etc/config/wireless")
-	      has_wifi = has_wifi and has_wifi.size > 0
+	local has_wifi = ntm:has_wifi()
 
 	if luci.http.formvalue("status") == "1" then
-		local ntm = require "luci.model.network".init()
 		local wan = ntm:get_wannet()
 		local wan6 = ntm:get_wan6net()
 
@@ -50,8 +50,11 @@ $Id$
 			connmax    = conn_max,
 			conncount  = conn_count,
 			leases     = luci.tools.status.dhcp_leases(),
-			wifinets   = luci.tools.status.wifi_networks()
 		}
+   
+                if has_wifi then
+			rv.wifinets = luci.tools.status.wifi_networks()
+                end
 
 		if wan then
 			rv.wan = {
