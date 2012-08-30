@@ -4,3 +4,10 @@ dist/
 *.so
 *.swp
 /docs
+.running-sdk
+build/po2lmo
+contrib/uci/series
+contrib/uhttpd/uhttpd-src
+libs/lmo/src/lookup
+libs/lmo/src/po2lmo
+modules/admin-full/src/luci-bwc
