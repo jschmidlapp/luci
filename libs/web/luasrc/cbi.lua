@@ -64,6 +64,7 @@ function load(cbimap, ...)
 	local cbidir = luci.util.libpath() .. "/model/cbi/"
 	local func, err
 
+	print("cbimap = %s\n" % cbidir..cbimap..".lua")
 	if fs.access(cbidir..cbimap..".lua") then
 		func, err = loadfile(cbidir..cbimap..".lua")
 	elseif fs.access(cbimap) then

@@ -1,0 +1,12 @@
+Move mount points section to application
+Need something to set language/theme
+Move package management to application
+Remove rpc module recipe?
+
+Generic apps to include:
+luci-diag-core
+luci-diag-devinfo
+luci-statistics
+
+
+clock_status

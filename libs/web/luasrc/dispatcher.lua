@@ -469,11 +469,12 @@ function createindex()
 	local path = luci.util.libpath() .. "/controller/"
 	local suff = { ".lua", ".lua.gz" }
 
-	if luci.util.copcall(require, "luci.fastindex") then
-		createindex_fastindex(path, suff)
-	else
-		createindex_plain(path, suff)
-	end
+	print "createindex"
+--	if luci.util.copcall(require, "luci.fastindex") then
+--		createindex_fastindex(path, suff)
+--	else
+	createindex_plain(path, suff)
+--	end
 end
 
 --- Generate the dispatching index using the fastindex C-indexer.
@@ -481,6 +482,8 @@ end
 -- @param suffixes	Controller file suffixes
 function createindex_fastindex(path, suffixes)
 	index = {}
+
+	print "createindex_fastindex"
 
 	if not fi then
 		fi = luci.fastindex.new("index")
@@ -505,6 +508,8 @@ function createindex_plain(path, suffixes)
 		nixio.util.consume((fs.glob(path .. "*" .. suffix)), controllers)
 		nixio.util.consume((fs.glob(path .. "*/*" .. suffix)), controllers)
 	end
+
+	print "createindex_plain"
 
 	if indexcache then
 		local cachedate = fs.stat(indexcache, "mtime")
